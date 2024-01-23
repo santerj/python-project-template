@@ -56,7 +56,7 @@ def useShell(values: dict[str, str]) -> None:
 
     subprocess.run(['rm', f'package/config/{ remove }'])
     subprocess.run(['mv', 'package', values['projectName']])
-    subprocess.run([f'PROJECT_NAME={ values["projectName"] }', 'envsubst', '<', 'README.md'])
+    #subprocess.run([f'PROJECT_NAME={ values["projectName"] }', 'envsubst', '<', 'README.md'])
     subprocess.run([f'{ sys.interpreter }', '-m', 'venv', 'dev-venv'])
     subprocess.run(['dev-venv/bin/pip', 'install', '--uprade', 'pip', 'pip-compile'])
     subprocess.run(['dev-env/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
