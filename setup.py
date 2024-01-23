@@ -63,6 +63,20 @@ def useShell(values: dict[str, str]) -> None:
                    'requirements/requirements.txt'])
     subprocess.run(['dev-venv/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
                    'requirements/dev-requirements.txt'])
+    subprocess.run(['rm', '-rf', '.git'])
+    subprocess.run(['git', 'init'])
+    subprocess.run(['git', 'add', '-A'])
+    subprocess.run(['git', 'commit', '-m', '"project created with python-project-template"'])
+    print(
+    """
+    Setup done!
+
+    Activate your venv with:
+        source dev-venv/bin/activate
+
+    Remember to also add a new git remote.
+    """
+    )
 
 def main():
     try:
