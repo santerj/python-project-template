@@ -54,15 +54,15 @@ def useShell(values: dict[str, str]) -> None:
         case 'none':
             remove = 'config.*'
 
-    subprocess.run(['rm', f'package/config/{ remove }'])
+    subprocess.run(f'rm package/config/{ remove }', shell=True)
     subprocess.run(['mv', 'package', values['projectName']])
-    #subprocess.run([f'PROJECT_NAME={ values["projectName"] }', 'envsubst', '<', 'README.md'])
     subprocess.run([f'{ sys.executable }', '-m', 'venv', 'dev-venv'])
     subprocess.run(['dev-venv/bin/pip', 'install', '--upgrade', 'pip', 'pip-tools'])
     subprocess.run(['dev-venv/bin/pip-compile', 'requirements/requirements.in', '--output-file', \
                    'requirements/requirements.txt'])
     subprocess.run(['dev-venv/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
                    'requirements/dev-requirements.txt'])
+    subprocess.run('dev-venv/bin/pip', 'install', '-r', 'requirements/dev-requirements.in')
     subprocess.run(['rm', '-rf', '.git'])
     subprocess.run(['git', 'init'])
     subprocess.run(['git', 'add', '-A'])
