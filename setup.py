@@ -71,10 +71,13 @@ def useShell(values: dict[str, str]) -> None:
     """
     Setup done!
 
-    Activate your venv with:
+    Activate venv with:
+
         source dev-venv/bin/activate
 
-    Remember to also add a new git remote.
+    Remember to also add a new git remote url.
+
+        git remote add origin [repo-url]
     """
     )
 
