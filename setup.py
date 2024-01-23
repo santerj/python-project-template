@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 
@@ -54,15 +55,22 @@ def useShell(values: dict[str, str]) -> None:
         case 'none':
             remove = 'config.*'
 
+    with open('.env', 'a+') as f:
+        f.write(f'PROJECT={ values["projectName"] }\n')
+        f.close()
+
     subprocess.run(f'rm package/config/{ remove }', shell=True)
     subprocess.run(['mv', 'package', values['projectName']])
+    for fn in ('README.md', 'noxfile.py', 'tests/test_main.py'):
+        subprocess.run(f'PROJECT={ values["projectName"] } envsubst < { fn } > { fn }.out && mv { fn }.out { fn }', shell=True)
+    os.remove('.env')
     subprocess.run([f'{ sys.executable }', '-m', 'venv', 'dev-venv'])
     subprocess.run(['dev-venv/bin/pip', 'install', '--upgrade', 'pip', 'pip-tools'])
     subprocess.run(['dev-venv/bin/pip-compile', 'requirements/requirements.in', '--output-file', \
                    'requirements/requirements.txt'])
     subprocess.run(['dev-venv/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
                    'requirements/dev-requirements.txt'])
-    subprocess.run('dev-venv/bin/pip', 'install', '-r', 'requirements/dev-requirements.in')
+    subprocess.run(['dev-venv/bin/pip', 'install', '-r', 'requirements/dev-requirements.txt'])
     subprocess.run(['rm', '-rf', '.git'])
     subprocess.run(['git', 'init'])
     subprocess.run(['git', 'add', '-A'])

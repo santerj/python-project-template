@@ -1,4 +1,4 @@
-# $PROJECT_NAME
+# $PROJECT
 
 Generic template for new Python projects.
 
