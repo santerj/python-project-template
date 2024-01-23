@@ -6,10 +6,9 @@ Generic template for new Python projects _with no dependencies!_.
 
 - basic project structure (source code, dependencies, tests) with minimal boilerplate
 - nox sessions for testing, linting, auditing etc.
-- 
 - TODO: tool configs in pyproject.toml
 - TODO: basic Dockerfile
-- TODO: Taskfile for recurring tasks
+- TODO: Taskfile for recurring tasks (pip-compile etc.)
 
 # Getting started
 
