@@ -80,18 +80,21 @@ def useShell(values: dict[str, str]) -> None:
         ['git', 'commit', '-m', '"project created with python-project-template"'],
         ):
         subprocess.run(cmd)
+
     print(
-    """
-    Setup done!
+"""
+Setup done!
 
-    Activate venv with:
+Activate venv with:
 
-        source dev-venv/bin/activate
+    source dev-venv/bin/activate
 
-    Remember to also add a new git remote url.
+Remember to also add a new git remote url.
 
-        git remote add origin [repo-url]
-    """
+    git remote add origin [repo-url]
+
+Also see README.md for instructions.
+"""
     )
 
 def main():
@@ -102,6 +105,9 @@ def main():
     
     writeRequirements(options)
     useShell(options)
+
+    # delete this script
+    os.remove(sys.argv[0])
 
 if __name__ == '__main__':
     main()

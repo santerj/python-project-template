@@ -1,8 +1,3 @@
 -r requirements.txt
-bandit
-isort
 nox
-pip-audit
 pip-tools
-pytest
-ruff
