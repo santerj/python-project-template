@@ -54,14 +54,13 @@ def useShell(values: dict[str, str]) -> None:
         case 'none':
             remove = 'config.*'
 
-    subprocess.run('rm', f'package/config/{ remove }')
-    subprocess.run('mv', 'package', values['projectName'])
-    subprocess.run(f'PROJECT_NAME={ values["projectName"] }', 'envsubst', '<', 'README.md')
-    subprocess.run(f'{sys.interpreter}', '-m', 'venv', 'dev-venv')
-    subprocess.run('dev-venv/bin/pip', 'install', '--uprade', 'pip', 'pip-compile')
-    subprocess.run('dev-env/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
-                   'requirements/dev-requirements.txt')
-    
+    subprocess.run(['rm', f'package/config/{ remove }'])
+    subprocess.run(['mv', 'package', values['projectName']])
+    subprocess.run([f'PROJECT_NAME={ values["projectName"] }', 'envsubst', '<', 'README.md'])
+    subprocess.run([f'{ sys.interpreter }', '-m', 'venv', 'dev-venv'])
+    subprocess.run(['dev-venv/bin/pip', 'install', '--uprade', 'pip', 'pip-compile'])
+    subprocess.run(['dev-env/bin/pip-compile', 'requirements/dev-requirements.in', '--output-file', \
+                   'requirements/dev-requirements.txt'])
 
 def main():
     try:
